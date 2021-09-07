@@ -1,0 +1,22 @@
+# If you want terraform to use a profile other than the default profile, specify the 
+# profile name here:
+
+#aws_local_profile = "profile_name"
+
+
+# If you want terraform to use an ARN other than the caller, specify the ARN here: 
+
+#aws_assume_role_arn = "arn:aws:iam::112233445566:user/you"
+
+
+
+# If you have configured AWS CLI profiles that assume roles into other accounts,
+# you will want to specify the profile name AND manually specify the ARN you'd 
+# like to use to assume into the different roles.
+
+# In the example below, the resources will be created in the account that is tied 
+# to "prod-cross-org-access-role", however each role that terraform creates can be 
+# accessed by "arn:aws:iam::112233445566:user/you", which belongs to another account.
+
+#aws_local_profile = "prod-cross-org-access-role"
+#aws_assume_role_arn = "arn:aws:iam::112233445566:user/you"
