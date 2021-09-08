@@ -56,7 +56,7 @@ This quick start outlines an opinionated approach to getting IAM Vulnerable up a
 15. (Optional) Add the IAM vulnerable profiles to your AWS credentials file, and change the account number.
       * The following commands make a backup of your current AWS credentials file, then takes the example credentials file from the repo and replaces the placeholder account with your target account number, and finally adds all of the IAM Vulnerable privesc profiles to your credentials file so you can use them:
       * `cp ~/.aws/credentials ~/.aws/credentials.backup`
-      * `tail -n +7 ../..aws_credentials_file_example | sed s/111111111111/$(aws sts get-caller-identity | grep Account | awk -F\" '{print $4}')/g >> ~/.aws/credentials`
+      * `tail -n +7 aws_credentials_file_example | sed s/111111111111/$(aws sts get-caller-identity | grep Account | awk -F\" '{print $4}')/g >> ~/.aws/credentials`
 
 
 **Cleanup**
