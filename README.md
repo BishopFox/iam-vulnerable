@@ -117,10 +117,10 @@ Deploying these additional modules can result in cost:
 | Name | Default Status | Estimated Cost | Description | Required for |
 | --- | --- | --- | --- | --- |
 | EC2  | Disabled | $4.50/month <br>:heavy_dollar_sign:| Creates an EC2 instance and a security group that allows SSH from anywhere | `ssm-SendCommand` <br> `ssm-StartSession` <br> `ec2InstanceConnect-SendSSHPublicKey` |
-| Lambda | Disabled | None | Creates a Lambda function. Monthly cost depends on usage (cost should be zero) | `Lambda-EditExistingLambdaFunctionWithRole` |
+| Lambda | Disabled | None. Monthly cost depends on usage (cost should be zero)| Creates a Lambda function  | `Lambda-EditExistingLambdaFunctionWithRole` |
 | Glue | Disabled |$4/hour <br>:heavy_dollar_sign::heavy_dollar_sign::heavy_dollar_sign::heavy_dollar_sign: | Creates a Glue dev endpoint | `Glue-UpdateExistingGlueDevEndpoint` |
 | SageMaker | Disabled | Not sure yet | Creates a SageMaker notebook | `sageMakerCreatePresignedNotebookURL` |
-| CloudFormation | Disabled | None | Creates a CloudFormation stack | `privesc-cloudFormationUpdateStack` |
+| CloudFormation | Disabled | None | Creates a CloudFormation stack that creates a secret in secret manager | `privesc-cloudFormationUpdateStack` |
 
 
 
