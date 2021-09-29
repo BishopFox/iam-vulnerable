@@ -47,7 +47,7 @@ This quick start outlines an opinionated approach to getting IAM Vulnerable up a
 6. Confirm your CLI is working as expected by executing `aws sts get-caller-identity`.
 7. [Install the Terraform binary](https://www.terraform.io/downloads.html) and add the binary location to your path.
 8. `git clone https://github.com/BishopFox/iam-vulnerable`
-9. `cd iam-vulnerable/modules/free-resources`
+9. `cd iam-vulnerable/`
 10. `terraform init`
 11. (Optional) `export TF_VAR_aws_local_profile=PROFILE_IN_AWS_CREDENTIALS_FILE_IF_OTHER_THAN_DEFAULT`  
 12. (Optional) `export TF_VAR_aws_local_creds_file=FILE_LOCATION_IF_NON_DEFAULT`
