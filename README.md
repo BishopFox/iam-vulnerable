@@ -58,7 +58,6 @@ This quick start outlines an opinionated approach to getting IAM Vulnerable up a
       * `cp ~/.aws/credentials ~/.aws/credentials.backup`
       * `tail -n +7 aws_credentials_file_example | sed s/111111111111/$(aws sts get-caller-identity | grep Account | awk -F\" '{print $4}')/g >> ~/.aws/credentials`
 
-
 **Cleanup**
 
 Whenever you want to remove all of the IAM Vulnerable-created resources, you can run these commands:
@@ -176,6 +175,10 @@ Deploying these additional modules can result in cost:
 #### Use a profile other than the default to run Terraform
 * Copy `terraform.tfvars.example` to `terraform.tvvars`
 * Uncomment the line `#aws_local_profile = "profile_name"` and enter the profile name you'd like to use
+* If you are using a non-default profile, and still want to use the `aws_credentails_file_example` file, you can use this command to generate an AWS credentials file that works with your non-default profile name (Thanks @scriptingislife)
+   * Remember to replace `nondefaultuser` with the profile name you are using): 
+   * `tail -n +7 aws_credentials_file_example | sed -e "s/111111111111/$(aws sts get-caller-identity | grep Account | awk -F\" '{print $4}')/g;s/default/nondefaultuser/g" >> ~/.aws/credentials`
+ 
 
 #### Use an ARN other than the caller as the principal that can assume the newly created roles
 
