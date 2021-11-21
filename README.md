@@ -47,7 +47,7 @@ This quick start outlines an opinionated approach to getting IAM Vulnerable up a
 6. Confirm your CLI is working as expected by executing `aws sts get-caller-identity`.
 7. [Install the Terraform binary](https://www.terraform.io/downloads.html) and add the binary location to your path.
 8. `git clone https://github.com/BishopFox/iam-vulnerable`
-9. `cd iam-vulnerable/modules/free-resources`
+9. `cd iam-vulnerable/`
 10. `terraform init`
 11. (Optional) `export TF_VAR_aws_local_profile=PROFILE_IN_AWS_CREDENTIALS_FILE_IF_OTHER_THAN_DEFAULT`  
 12. (Optional) `export TF_VAR_aws_local_creds_file=FILE_LOCATION_IF_NON_DEFAULT`
@@ -56,8 +56,7 @@ This quick start outlines an opinionated approach to getting IAM Vulnerable up a
 15. (Optional) Add the IAM vulnerable profiles to your AWS credentials file, and change the account number.
       * The following commands make a backup of your current AWS credentials file, then takes the example credentials file from the repo and replaces the placeholder account with your target account number, and finally adds all of the IAM Vulnerable privesc profiles to your credentials file so you can use them:
       * `cp ~/.aws/credentials ~/.aws/credentials.backup`
-      * `tail -n +7 ../..aws_credentials_file_example | sed s/111111111111/$(aws sts get-caller-identity | grep Account | awk -F\" '{print $4}')/g >> ~/.aws/credentials`
-
+      * `tail -n +7 aws_credentials_file_example | sed s/111111111111/$(aws sts get-caller-identity | grep Account | awk -F\" '{print $4}')/g >> ~/.aws/credentials`
 
 **Cleanup**
 
@@ -116,11 +115,11 @@ Deploying these additional modules can result in cost:
 
 | Name | Default Status | Estimated Cost | Description | Required for |
 | --- | --- | --- | --- | --- |
-| EC2  | Disabled | $4.50/month <br>:heavy_dollar_sign:| Creates an EC2 instance and a security group that allows SSH from anywhere | `ssm-SendCommand` <br> `ssm-StartSession` <br> `ec2InstanceConnect-SendSSHPublicKey` |
-| Lambda | Disabled | None | Creates a Lambda function. Monthly cost depends on usage (cost should be zero) | `Lambda-EditExistingLambdaFunctionWithRole` |
-| Glue | Disabled |$4/hour <br>:heavy_dollar_sign::heavy_dollar_sign::heavy_dollar_sign::heavy_dollar_sign: | Creates a Glue dev endpoint | `Glue-UpdateExistingGlueDevEndpoint` |
+| EC2  | Disabled | :heavy_dollar_sign: <br> $4.50/month | Creates an EC2 instance and a security group that allows SSH from anywhere | `ssm-SendCommand` <br> `ssm-StartSession` <br> `ec2InstanceConnect-SendSSHPublicKey` |
+| Lambda | Disabled | :slightly_smiling_face: <br> Monthly cost depends on usage (cost should be zero) | Creates a Lambda function  | `Lambda-EditExistingLambdaFunctionWithRole` |
+| Glue | Disabled | :heavy_dollar_sign::heavy_dollar_sign::heavy_dollar_sign::heavy_dollar_sign: <br> $4/hour | Creates a Glue dev endpoint | `Glue-UpdateExistingGlueDevEndpoint` |
 | SageMaker | Disabled | Not sure yet | Creates a SageMaker notebook | `sageMakerCreatePresignedNotebookURL` |
-| CloudFormation | Disabled | None | Creates a CloudFormation stack | `privesc-cloudFormationUpdateStack` |
+| CloudFormation | Disabled |  :slightly_smiling_face: <br> $0.40/month for the secret created via CloudFormation. Nothing or barely nothing for the stack itself	| Creates a CloudFormation stack that creates a secret in secret manager | `privesc-cloudFormationUpdateStack` |
 
 
 
@@ -129,41 +128,41 @@ Deploying these additional modules can result in cost:
 | Path Name | IAM Vulnerable Profile Name | Non-Default Modules Required | Exploitation References |
 | --- | --- | --- | --- |
 | **Category: IAM Permissions on Other Users** |   |   |   |
-| IAM-CreateAccessKey | privesc4  | None  | [Well, That Escalated Quickly - Privesc 04](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-CreateLoginProfile | privesc5  | None  | [Well, That Escalated Quickly - Privesc 05](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-UpdateLoginProfile | privesc6  | None  | [Well, That Escalated Quickly - Privesc 06](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| IAM-CreateAccessKey | privesc4  | None  | :fox_face: [Well, That Escalated Quickly - Privesc 04](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 3](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-3) |
+| IAM-CreateLoginProfile | privesc5  | None  | :fox_face: [Well, That Escalated Quickly - Privesc 05](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 3](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-3)  |
+| IAM-UpdateLoginProfile | privesc6  | None  | :fox_face: [Well, That Escalated Quickly - Privesc 06](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 3](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-3)  |
 | **Category: PassRole to Service** |   |  |   |
-| CloudFormation-PassExistingRoleToCloudFormation | privesc20  | None  |[Well, That Escalated Quickly - Privesc 20](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
+| CloudFormation-PassExistingRoleToCloudFormation | privesc20  | None  |:fox_face: [Well, That Escalated Quickly - Privesc 20](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
 | CodeBuild-CreateProjectPassRole| privesc-codeBuildProject  | None  |   |
-| DataPipeline-PassExistingRoleToNewDataPipeline| privesc21  | None  | [Well, That Escalated Quickly - Privesc 21](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| EC2-CreateInstanceWithExistingProfile| privesc3  | None  | [Well, That Escalated Quickly - Privesc 03](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| Glue-PassExistingRoleToNewGlueDevEndpoint | privesc18  | None  | [Well, That Escalated Quickly - Privesc 18](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| Lambda-PassExistingRoleToNewLambdaThenInvoke | privesc15  |  None |  [Well, That Escalated Quickly - Privesc 15](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
-| Lambda-PassRoleToNewLambdaThenTrigger | privesc16  |  None |  [Well, That Escalated Quickly - Privesc 16](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| SageMaker-CreateNotebookPassRole |  privesc-sageNotebook | None  |  [AWS IAM Privilege Escalation - Method 2](https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/)  |
+| DataPipeline-PassExistingRoleToNewDataPipeline| privesc21  | None  | :fox_face: [Well, That Escalated Quickly - Privesc 21](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| EC2-CreateInstanceWithExistingProfile| privesc3  | None  | :fox_face: [Well, That Escalated Quickly - Privesc 03](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 2](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-2) |
+| Glue-PassExistingRoleToNewGlueDevEndpoint | privesc18  | None  | :fox_face: [Well, That Escalated Quickly - Privesc 18](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| Lambda-PassExistingRoleToNewLambdaThenInvoke | privesc15  |  None | :fox_face: [Well, That Escalated Quickly - Privesc 15](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
+| Lambda-PassRoleToNewLambdaThenTrigger | privesc16  |  None | :fox_face: [Well, That Escalated Quickly - Privesc 16](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| SageMaker-CreateNotebookPassRole |  privesc-sageNotebook | None  | :rhinoceros: [AWS IAM Privilege Escalation - Method 2](https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/)  |
 | SageMaker-CreateTrainingJobPassRole | privesc-sageTraining  |  None  |   |
 | SageMaker-CreateProcessingJobPassRole |  privesc-sageProcessing | None   | |
 | **Category: Permissions on Policies** |    |   |
-| IAM-AddUserToGroup | privesc13  |  None  | [Well, That Escalated Quickly - Privesc 13](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
-| IAM-AttachGroupPolicy| privesc8  | None   | [Well, That Escalated Quickly - Privesc 08](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-AttachRolePolicy| privesc9  | None   | [Well, That Escalated Quickly - Privesc 09](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-AttachUserPolicy| privesc7  | None   |  [Well, That Escalated Quickly - Privesc 07](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-CreateNewPolicyVersion| privesc1  |  None | [Well, That Escalated Quickly - Privesc 01](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-PutGroupPolicy | privesc11  | None  |  [Well, That Escalated Quickly - Privesc 11](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-PutRolePolicy | privesc12  | None |  [Well, That Escalated Quickly - Privesc 12](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) |
-| IAM-PutUserPolicy | privesc10  | None   | [Well, That Escalated Quickly - Privesc 10](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| IAM-SetExistingDefaultPolicyVersion | privesc2  | None  |  [Well, That Escalated Quickly - Privesc 02](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) |
+| IAM-AddUserToGroup | privesc13  |  None  |:fox_face: [Well, That Escalated Quickly - Privesc 13](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
+| IAM-AttachGroupPolicy| privesc8  | None   | :fox_face: [Well, That Escalated Quickly - Privesc 08](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| IAM-AttachRolePolicy| privesc9  | None   | :fox_face: [Well, That Escalated Quickly - Privesc 09](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| IAM-AttachUserPolicy| privesc7  | None   | :fox_face:  [Well, That Escalated Quickly - Privesc 07](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| IAM-CreateNewPolicyVersion| privesc1  |  None | :fox_face: [Well, That Escalated Quickly - Privesc 01](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 1](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable) |
+| IAM-PutGroupPolicy | privesc11  | None  | :fox_face: [Well, That Escalated Quickly - Privesc 11](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| IAM-PutRolePolicy | privesc12  | None | :fox_face:  [Well, That Escalated Quickly - Privesc 12](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) |
+| IAM-PutUserPolicy | privesc10  | None   | :fox_face: [Well, That Escalated Quickly - Privesc 10](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| IAM-SetExistingDefaultPolicyVersion | privesc2  | None  |  :fox_face: [Well, That Escalated Quickly - Privesc 02](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 2](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-2)|
 | **Category: Privilege Escalation using AWS Services**|    |   |   |
 | EC2InstanceConnect-SendSSHPublicKey | privesc-instanceConnect  |  EC2  |   |
 | CloudFormation-UpdateStack | privesc-cfUpdateStack | CloudFormation |  |
-| Glue-UpdateExistingGlueDevEndpoint| privesc19  |  Glue | [Well, That Escalated Quickly - Privesc 19](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| Lambda-EditExistingLambdaFunctionWithRole| privesc17  |  Lambda  | [Well, That Escalated Quickly - Privesc 17](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
-| SageMakerCreatePresignedNotebookURL | privesc-sageUpdateURL | Sagemaker | [AWS IAM Privilege Escalation - Method 3](https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/) |
+| Glue-UpdateExistingGlueDevEndpoint| privesc19  |  Glue | :fox_face: [Well, That Escalated Quickly - Privesc 19](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
+| Lambda-EditExistingLambdaFunctionWithRole| privesc17  |  Lambda  | :fox_face: [Well, That Escalated Quickly - Privesc 17](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 4](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-4)  |
+| SageMakerCreatePresignedNotebookURL | privesc-sageUpdateURL | Sagemaker | :rhinoceros: [AWS IAM Privilege Escalation - Method 3](https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/) |
 | SSM-SendCommand| privesc-ssm-command  |  EC2  |   |
 | SSM-StartSession | privesc-ssm-session  |  EC2  |   |
 | STS-AssumeRole | privesc-assumerole  | None   |   |
 | **Category: Updating an AssumeRole Policy** |   |   |   |
-| IAM-UpdatingAssumeRolePolicy |  privesc14 | None  | [Well, That Escalated Quickly - Privesc 14](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
+| IAM-UpdatingAssumeRolePolicy |  privesc14 | None  | :fox_face: [Well, That Escalated Quickly - Privesc 14](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
 
 
 
@@ -176,6 +175,10 @@ Deploying these additional modules can result in cost:
 #### Use a profile other than the default to run Terraform
 * Copy `terraform.tfvars.example` to `terraform.tvvars`
 * Uncomment the line `#aws_local_profile = "profile_name"` and enter the profile name you'd like to use
+* If you are using a non-default profile, and still want to use the `aws_credentails_file_example` file, you can use this command to generate an AWS credentials file that works with your non-default profile name (Thanks @scriptingislife)
+   * Remember to replace `nondefaultuser` with the profile name you are using): 
+   * `tail -n +7 aws_credentials_file_example | sed -e "s/111111111111/$(aws sts get-caller-identity | grep Account | awk -F\" '{print $4}')/g;s/default/nondefaultuser/g" >> ~/.aws/credentials`
+ 
 
 #### Use an ARN other than the caller as the principal that can assume the newly created roles
 

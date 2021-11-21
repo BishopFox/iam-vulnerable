@@ -20,7 +20,7 @@ resource "aws_iam_policy" "fp2-allow-all" {
 resource "aws_iam_policy" "deny-all" {
   name        = "deny-all"
   path        = "/"
-  description = "Denys everything"
+  description = "Denies everything"
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
