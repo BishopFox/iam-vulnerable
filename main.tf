@@ -42,10 +42,10 @@ module "tool-testing" {
 # Uncomment the next module to create an ec2 instance and related resources
 ###################
 
-//module "ec2" {
-// source = "./modules/non-free-resources/ec2"
-// aws_assume_role_arn = (var.aws_assume_role_arn != "" ? var.aws_assume_role_arn : data.aws_caller_identity.current.arn)
-//}
+#module "ec2" {
+# source = "./modules/non-free-resources/ec2"
+# aws_assume_role_arn = (var.aws_assume_role_arn != "" ? var.aws_assume_role_arn : data.aws_caller_identity.current.arn)
+#}
 
  
 ###################
