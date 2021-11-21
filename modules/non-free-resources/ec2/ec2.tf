@@ -1,17 +1,12 @@
-data "aws_ami" "ubuntu" {
+data "aws_ami" "amazon-2" {
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["amzn2-ami-hvm-*-x86_64-ebs"]
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["0720109477"] # Canonical
+  owners = ["amazon"] # Canonical
 }
 
 resource "aws_security_group" "allow_ssh_from_world" {
@@ -41,7 +36,7 @@ resource "aws_security_group" "allow_ssh_from_world" {
 
 
 resource "aws_instance" "ec2" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.amazon-2.id
   instance_type = "t3.nano"
   iam_instance_profile = "privesc-high-priv-service-profile"
   associate_public_ip_address = true
