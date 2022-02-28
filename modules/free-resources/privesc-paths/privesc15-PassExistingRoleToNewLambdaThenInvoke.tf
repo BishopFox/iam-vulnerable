@@ -10,7 +10,6 @@ resource "aws_iam_policy" "privesc15-PassExistingRoleToNewLambdaThenInvoke" {
     Statement = [
       {
         Action = [
-	      "lambda:CreateFunction",
  			  "iam:PassRole",
 			  "lambda:CreateFunction",
 			  "lambda:InvokeFunction"
