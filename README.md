@@ -153,14 +153,14 @@ Deploying these additional modules can result in cost:
 | IAM-PutUserPolicy | privesc10  | None   | :fox_face: [Well, That Escalated Quickly - Privesc 10](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
 | IAM-SetExistingDefaultPolicyVersion | privesc2  | None  |  :fox_face: [Well, That Escalated Quickly - Privesc 02](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 2](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-2)|
 | **Category: Privilege Escalation using AWS Services**|    |   |   |
-| EC2InstanceConnect-SendSSHPublicKey | privesc-instanceConnect  |  EC2  |   |
-| CloudFormation-UpdateStack | privesc-cfUpdateStack | CloudFormation |  |
+| EC2InstanceConnect-SendSSHPublicKey | privesc-instanceConnect  |  EC2  | 🔑 [AWS IAM privilege escalation paths](https://pswalia2u.medium.com/aws-iam-privilege-escalation-paths-cba36be1aa9e) |
+| CloudFormation-UpdateStack | privesc-cfUpdateStack | CloudFormation | 🔑 [AWS IAM privilege escalation paths](https://pswalia2u.medium.com/aws-iam-privilege-escalation-paths-cba36be1aa9e) |
 | Glue-UpdateExistingGlueDevEndpoint| privesc19  |  Glue | :fox_face: [Well, That Escalated Quickly - Privesc 19](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)  |
 | Lambda-EditExistingLambdaFunctionWithRole| privesc17  |  Lambda  | :fox_face: [Well, That Escalated Quickly - Privesc 17](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws) <br> :lock: [s3cur3.it IAMVulnerable - Part 4](https://s3cur3.it/home/practicing-aws-security-with-iamvulnerable-part-4)  |
 | SageMakerCreatePresignedNotebookURL | privesc-sageUpdateURL | Sagemaker | :rhinoceros: [AWS IAM Privilege Escalation - Method 3](https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation-part-2/) |
-| SSM-SendCommand| privesc-ssm-command  |  EC2  |   |
-| SSM-StartSession | privesc-ssm-session  |  EC2  |   |
-| STS-AssumeRole | privesc-assumerole  | None   |   |
+| SSM-SendCommand| privesc-ssm-command  |  EC2  | 🔑 [AWS IAM privilege escalation paths](https://pswalia2u.medium.com/aws-iam-privilege-escalation-paths-cba36be1aa9e) |
+| SSM-StartSession | privesc-ssm-session  |  EC2  | 🔑 [AWS IAM privilege escalation paths](https://pswalia2u.medium.com/aws-iam-privilege-escalation-paths-cba36be1aa9e) |
+| STS-AssumeRole | privesc-assumerole  | None   | 🔑 [AWS IAM privilege escalation paths](https://pswalia2u.medium.com/aws-iam-privilege-escalation-paths-cba36be1aa9e) |
 | **Category: Updating an AssumeRole Policy** |   |   |   |
 | IAM-UpdatingAssumeRolePolicy |  privesc14 | None  | :fox_face: [Well, That Escalated Quickly - Privesc 14](https://labs.bishopfox.com/tech-blog/privilege-escalation-in-aws)   |
 
