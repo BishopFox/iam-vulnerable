@@ -33,7 +33,7 @@ resource "aws_lambda_function" "test_lambda" {
   role             = aws_iam_role.privesc-high-priv-lambda-role2.arn
   handler          = "index.handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-  runtime          = "nodejs12.x"
+  runtime          = "nodejs18.x"
 }
 resource "aws_iam_role" "privesc-high-priv-lambda-role2" {
   name                = "privesc-high-priv-lambda-role2"
