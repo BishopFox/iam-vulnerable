@@ -7,6 +7,16 @@ Use Terraform to create your own *vulnerable by design* AWS IAM privilege escala
 
 IAM Vulnerable uses the Terraform binary and your AWS credentials to deploy over 250 IAM resources into your selected AWS account. Within minutes, you can start learning how to identify and exploit vulnerable IAM configurations that allow for privilege escalation.
 
+# IAM Vulnerable's big brother - CloudFoxable
+
+Hey all. IAM Vulnerable is still immensely useful for understanding the basic building blocks of AWS IAM privilege escaltion. However, a few years after making IAM vulnerable, I created CloudFoxable, a CTF style version that teachers you the basics of cloud penetration testing more wholisisticlly. 
+
+#### Intentionally Vulnerable Playground 
+* [CloudFoxable - A Gamified Cloud Hacking Sandbox](https://cloudfoxable.bishopfox.com/)
+
+#### Want to chat about IAM-Vulnerable, CloudFox, and CloudFoxable? 
+Join us on the [RedSec discord server](https://discord.gg/redsec)
+
 :fox_face:  **Currently supported privilege escalation paths:         31**
 
 # Table of Contents
