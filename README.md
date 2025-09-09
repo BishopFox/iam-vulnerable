@@ -74,6 +74,26 @@ Whenever you want to remove all of the IAM Vulnerable-created resources, you can
 1. `cd iam-vulnerable/`
 1. `terraform destroy`
 
+**Alternative Cleanup (When Terraform State is Lost)**
+
+In a case where you have deployed iam-vulnerable using Terraform but no longer have access to the state file (and `terraform destroy` does not work), you can use the following cleanup scripts:
+
+```bash
+# Python version (requires boto3)
+./cleanup-scripts/cleanup_iam_vulnerable.py --dry-run
+
+# Bash version (requires AWS CLI and jq)  
+./cleanup-scripts/cleanup_iam_vulnerable.sh --dry-run
+```
+
+These scripts will:
+- Automatically identify all IAM Vulnerable resources in your AWS account
+- Show you exactly what will be deleted before proceeding
+- Delete resources in the proper order to avoid dependency conflicts
+- Support AWS profiles and provide detailed logging
+
+**Important**: Always run with `--dry-run` first to see what would be deleted. See `cleanup-scripts/CLEANUP_README.md` for detailed usage instructions.
+
 
 ## What resources were just created?
 
