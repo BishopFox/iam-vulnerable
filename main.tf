@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.9"
+      version = "~> 6.0"
     }
   }
 }
@@ -32,10 +32,10 @@ module "tool-testing" {
 # Uncomment the next module to create a lambda and related resources
 ###################
 
-#module "lambda" {
+# module "lambda" {
 # source = "./modules/non-free-resources/lambda"
 # aws_assume_role_arn = (var.aws_assume_role_arn != "" ? var.aws_assume_role_arn : data.aws_caller_identity.current.arn)
-#}
+# }
 
 ###################
 # Module: EC2
