@@ -9,7 +9,7 @@ IAM Vulnerable uses the Terraform binary and your AWS credentials to deploy over
 
 # IAM Vulnerable's big brother - CloudFoxable
 
-Hey all. IAM Vulnerable is still immensely useful for understanding the basic building blocks of AWS IAM privilege escaltion. However, a few years after making IAM vulnerable, I created CloudFoxable, a CTF style version that teachers you the basics of cloud penetration testing more wholisisticlly. 
+Hey all. IAM Vulnerable is still immensely useful for understanding the basic building blocks of AWS IAM privilege escaltion. However, a few years after making IAM vulnerable, I created CloudFoxable, a CTF style version that teaches you the basics of cloud penetration testing more wholisisticlly. - [@sethsec](https://www.linkedin.com/in/sethart/)
 
 #### Intentionally Vulnerable Playground 
 * [CloudFoxable - A Gamified Cloud Hacking Sandbox](https://cloudfoxable.bishopfox.com/)
