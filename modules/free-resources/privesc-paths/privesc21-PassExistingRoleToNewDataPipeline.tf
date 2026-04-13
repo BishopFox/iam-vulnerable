@@ -11,7 +11,12 @@ resource "aws_iam_policy" "privesc21-PassExistingRoleToNewDataPipeline" {
 	   {
 		 "Effect": "Allow",
 		 "Action": "iam:PassRole",
-		 "Resource": "*"
+		 "Resource": "arn:aws:iam::*:role/privesc-high-priv-service-role",
+		 "Condition": {
+			 "StringEquals": {
+				 "iam:PassedToService": "datapipeline.amazonaws.com"
+			 }
+		 }
 	  },
 	  {
 		 "Effect": "Allow",

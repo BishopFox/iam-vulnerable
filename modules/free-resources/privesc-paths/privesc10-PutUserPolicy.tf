@@ -9,7 +9,10 @@ resource "aws_iam_policy" "privesc10-PutUserPolicy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:PutUserPolicy"
+        Action = [
+          "iam:GetUserPolicy",
+          "iam:ListUserPolicies"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

@@ -10,7 +10,10 @@ resource "aws_iam_policy" "privesc-AssumeRole-high-priv-policy" {
     Statement = [
       {
         Effect   = "Allow"
-        Action = "*"
+        Action = [
+          "sts:GetCallerIdentity",
+          "iam:ListRoles"
+        ]
         Resource = "*"
       },
     ]

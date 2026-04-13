@@ -10,14 +10,23 @@ resource "aws_iam_policy" "privesc3-CreateEC2WithExistingInstanceProfile" {
     Statement = [
       {
         Action = [
-	      "iam:PassRole",
-        "ec2:DescribeInstances",
-        "ec2:RunInstances",
-        "ec2:CreateKeyPair",
-        "ec2:AssociateIamInstanceProfile"
+          "ec2:DescribeInstances",
+          "ec2:RunInstances",
+          "ec2:CreateKeyPair",
+          "ec2:AssociateIamInstanceProfile"
         ]
         Effect   = "Allow"
         Resource = "*"
+      },
+      {
+        Action   = "iam:PassRole"
+        Effect   = "Allow"
+        Resource = "arn:aws:iam::*:role/privesc-high-priv-service-role"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "ec2.amazonaws.com"
+          }
+        }
       },
     ]
   })

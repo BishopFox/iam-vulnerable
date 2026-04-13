@@ -9,7 +9,10 @@ resource "aws_iam_policy" "privesc9-AttachRolePolicy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:AttachRolePolicy"
+        Action = [
+          "iam:ListAttachedRolePolicies",
+          "iam:ListRolePolicies"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

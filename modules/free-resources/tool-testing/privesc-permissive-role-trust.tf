@@ -11,7 +11,7 @@ resource "aws_iam_role" "privesc-permissive-role-trust" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          AWS = var.aws_root_user
+          AWS = var.aws_assume_role_arn
         }
       },
     ]

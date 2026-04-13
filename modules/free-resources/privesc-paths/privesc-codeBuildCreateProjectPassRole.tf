@@ -11,13 +11,22 @@ resource "aws_iam_policy" "privesc-codeBuildCreateProjectPassRole-policy" {
       {
         Effect   = "Allow"
         Action = [
-          "codebuild:CreateProject",          
+          "codebuild:CreateProject",
           "codebuild:StartBuild",
-          "codebuild:StartBuildBatch",          
-          "iam:PassRole",
-          "iam:ListRoles"          
+          "codebuild:StartBuildBatch",
+          "iam:ListRoles"
         ]
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "iam:PassRole"
+        Resource = "arn:aws:iam::*:role/privesc-high-priv-service-role"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "codebuild.amazonaws.com"
+          }
+        }
       },
     ]
   })

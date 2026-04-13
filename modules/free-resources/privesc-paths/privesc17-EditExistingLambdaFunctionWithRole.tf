@@ -14,7 +14,7 @@ resource "aws_iam_policy" "privesc17-EditExistingLambdaFunctionWithRole" {
           "lambda:UpdateFunctionConfiguration"
         ]
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:lambda:*:*:function:test_lambda"
       },
     ]
   })

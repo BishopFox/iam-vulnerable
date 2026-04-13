@@ -10,12 +10,21 @@ resource "aws_iam_policy" "privesc-ec2InstanceConnect-policy" {
     Statement = [
       {
         Effect   = "Allow"
-        Action = [
-          "ec2:DescribeInstances",
-          "ec2-instance-connect:SendSSHPublicKey",
-          "ec2-instance-connect:SendSerialConsoleSSHPublicKey",
-        ]
+        Action = "ec2:DescribeInstances"
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action = [
+          "ec2-instance-connect:SendSSHPublicKey",
+          "ec2-instance-connect:SendSerialConsoleSSHPublicKey"
+        ]
+        Resource = "arn:aws:ec2:*:*:instance/*"
+        Condition = {
+          StringEquals = {
+            "ec2:ResourceTag/Environment" = "lab"
+          }
+        }
       },
     ]
   })

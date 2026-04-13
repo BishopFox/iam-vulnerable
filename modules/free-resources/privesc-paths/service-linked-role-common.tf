@@ -11,7 +11,18 @@ resource "aws_iam_policy" "privesc-high-priv-service-policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "*"
+        Action = [
+          "ec2:Describe*",
+          "ec2:StartInstances",
+          "ec2:StopInstances",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "cloudwatch:PutMetricData",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },
@@ -33,18 +44,7 @@ resource "aws_iam_role" "privesc-high-priv-service-role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = [
-            "ec2.amazonaws.com",
-            "datapipeline.amazonaws.com",
-            "cloudformation.amazonaws.com",
-            "lambda.amazonaws.com",
-            "glue.amazonaws.com",
-            "ecs-tasks.amazonaws.com",
-            "codebuild.amazonaws.com",
-            "eks.amazonaws.com",
-            "sagemaker.amazonaws.com",
-            "elasticbeanstalk.amazonaws.com"
-          ]            
+          Service = "ec2.amazonaws.com"            
         }
       },
     ]

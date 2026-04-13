@@ -10,12 +10,21 @@ resource "aws_iam_policy" "privesc18-PassExistingRoleToNewGlueDevEndpoint" {
     Statement = [
       {
         Action = [
-	      "glue:CreateDevEndpoint",
-        "glue:GetDevEndpoint",
- 			  "iam:PassRole"			  
+          "glue:CreateDevEndpoint",
+          "glue:GetDevEndpoint"
         ]
         Effect   = "Allow"
         Resource = "*"
+      },
+      {
+        Action   = "iam:PassRole"
+        Effect   = "Allow"
+        Resource = "arn:aws:iam::*:role/privesc-glue-devendpoint-role"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "glue.amazonaws.com"
+          }
+        }
       },
     ]
   })

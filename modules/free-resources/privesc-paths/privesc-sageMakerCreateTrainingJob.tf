@@ -10,11 +10,18 @@ resource "aws_iam_policy" "privesc-sageMakerCreateTrainingJobPassRole-policy" {
     Statement = [
       {
         Effect   = "Allow"
-        Action = [
-          "sagemaker:CreateTrainingJob",
-          "iam:PassRole"          
-        ]
+        Action = "sagemaker:CreateTrainingJob"
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "iam:PassRole"
+        Resource = "arn:aws:iam::*:role/privesc-sagemaker-role"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "sagemaker.amazonaws.com"
+          }
+        }
       },
     ]
   })

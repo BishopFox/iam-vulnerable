@@ -9,7 +9,10 @@ resource "aws_iam_policy" "privesc8-AttachGroupPolicy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:AttachGroupPolicy"
+        Action = [
+          "iam:ListAttachedGroupPolicies",
+          "iam:ListGroupPolicies"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

@@ -9,7 +9,10 @@ resource "aws_iam_policy" "privesc12-PutRolePolicy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:PutRolePolicy"
+        Action = [
+          "iam:GetRolePolicy",
+          "iam:ListRolePolicies"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

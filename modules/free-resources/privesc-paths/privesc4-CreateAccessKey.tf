@@ -11,7 +11,7 @@ resource "aws_iam_policy" "privesc4-CreateAccessKey" {
       {
         Action = "iam:CreateAccessKey"
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:iam::*:user/$${aws:username}"
       },
     ]
   })

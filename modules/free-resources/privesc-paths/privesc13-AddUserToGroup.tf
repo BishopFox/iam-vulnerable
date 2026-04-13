@@ -9,7 +9,10 @@ resource "aws_iam_policy" "privesc13-AddUserToGroup" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:AddUserToGroup"
+        Action = [
+          "iam:ListGroupsForUser",
+          "iam:ListGroups"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

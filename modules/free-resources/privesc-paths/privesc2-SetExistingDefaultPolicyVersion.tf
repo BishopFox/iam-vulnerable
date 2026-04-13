@@ -14,7 +14,10 @@ resource "aws_iam_policy" "privesc2-SetExistingDefaultPolicyVersion" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:SetDefaultPolicyVersion"
+        Action = [
+          "iam:GetPolicy",
+          "iam:ListPolicyVersions"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

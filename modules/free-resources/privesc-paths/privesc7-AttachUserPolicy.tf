@@ -9,7 +9,10 @@ resource "aws_iam_policy" "privesc7-AttachUserPolicy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:AttachUserPolicy"
+        Action = [
+          "iam:ListAttachedUserPolicies",
+          "iam:ListUserPolicies"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

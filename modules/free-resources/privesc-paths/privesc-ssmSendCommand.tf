@@ -12,11 +12,23 @@ resource "aws_iam_policy" "privesc-ssmSendCommand-policy" {
         Effect   = "Allow"
         Action = [
           "ec2:DescribeInstances",
-          "ssm:listCommands",
-          "ssm:listCommandInvocations",
-          "ssm:sendCommand",
+          "ssm:ListCommands",
+          "ssm:ListCommandInvocations"
         ]
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "ssm:SendCommand"
+        Resource = [
+          "arn:aws:ssm:*:*:document/AWS-RunShellScript",
+          "arn:aws:ec2:*:*:instance/*"
+        ]
+        Condition = {
+          StringEquals = {
+            "ssm:ResourceTag/Environment" = "lab"
+          }
+        }
       },
     ]
   })

@@ -11,7 +11,7 @@ resource "aws_iam_policy" "privesc5-CreateLoginProfile" {
       {
         Action = "iam:CreateLoginProfile"
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:iam::*:user/$${aws:username}"
       },
     ]
   })

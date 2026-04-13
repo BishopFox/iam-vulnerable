@@ -9,7 +9,11 @@ resource "aws_iam_policy" "privesc1-CreateNewPolicyVersion" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:CreatePolicyVersion"
+        Action = [
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "iam:ListPolicyVersions"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

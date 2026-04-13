@@ -9,7 +9,10 @@ resource "aws_iam_policy" "privesc11-PutGroupPolicy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "iam:PutGroupPolicy"
+        Action = [
+          "iam:GetGroupPolicy",
+          "iam:ListGroupPolicies"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

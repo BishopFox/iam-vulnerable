@@ -28,7 +28,16 @@ resource "aws_iam_policy" "privesc-high-priv-glue-policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "*"
+        Action = [
+          "glue:GetDevEndpoint",
+          "glue:GetDevEndpoints",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket"
+        ]
         Effect   = "Allow"
         Resource = "*"
       },

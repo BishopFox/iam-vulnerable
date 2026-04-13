@@ -9,14 +9,24 @@ resource "aws_iam_policy" "privesc20-PassExistingRoleToCloudFormation" {
 	 "Version": "2012-10-17",
 	 "Statement": [
 	   {
-		 "Sid": "VisualEditor0",
+		 "Sid": "CloudFormationAccess",
 		 "Effect": "Allow",
 		 "Action": [
-			 "iam:PassRole",
 			 "cloudformation:CreateStack",
 			 "cloudformation:DescribeStacks"
 		 ],
 		 "Resource": "*"
+	  },
+	  {
+		 "Sid": "ScopedPassRole",
+		 "Effect": "Allow",
+		 "Action": "iam:PassRole",
+		 "Resource": "arn:aws:iam::*:role/privesc-high-priv-service-role",
+		 "Condition": {
+			 "StringEquals": {
+				 "iam:PassedToService": "cloudformation.amazonaws.com"
+			 }
+		 }
 	  }
    ]
 })

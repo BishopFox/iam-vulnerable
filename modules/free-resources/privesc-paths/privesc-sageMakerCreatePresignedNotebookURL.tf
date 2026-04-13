@@ -10,11 +10,13 @@ resource "aws_iam_policy" "privesc-sageMakerCreatePresignedNotebookURL-policy" {
     Statement = [
       {
         Effect   = "Allow"
-        Action = [
-          "sagemaker:CreatePresignedNotebookInstanceUrl",
-          "sagemaker:ListNotebookInstances"          
-        ]
+        Action = "sagemaker:ListNotebookInstances"
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "sagemaker:CreatePresignedNotebookInstanceUrl"
+        Resource = "arn:aws:sagemaker:*:*:notebook-instance/privesc-sagemakerNotebook"
       },
     ]
   })

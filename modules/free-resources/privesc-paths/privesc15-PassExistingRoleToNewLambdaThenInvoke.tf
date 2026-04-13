@@ -10,12 +10,21 @@ resource "aws_iam_policy" "privesc15-PassExistingRoleToNewLambdaThenInvoke" {
     Statement = [
       {
         Action = [
- 			  "iam:PassRole",
-			  "lambda:CreateFunction",
-			  "lambda:InvokeFunction"
+          "lambda:CreateFunction",
+          "lambda:InvokeFunction"
         ]
         Effect   = "Allow"
         Resource = "*"
+      },
+      {
+        Action   = "iam:PassRole"
+        Effect   = "Allow"
+        Resource = "arn:aws:iam::*:role/privesc-high-priv-lambda-role2"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "lambda.amazonaws.com"
+          }
+        }
       },
     ]
   })

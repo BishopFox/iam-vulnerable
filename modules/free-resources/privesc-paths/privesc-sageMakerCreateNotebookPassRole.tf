@@ -11,16 +11,25 @@ resource "aws_iam_policy" "privesc-sageMakerCreateNotebookPassRole-policy" {
       {
         Effect   = "Allow"
         Action = [
-          "sagemaker:CreateNotebookInstance",          
+          "sagemaker:CreateNotebookInstance",
           "sagemaker:CreatePresignedNotebookInstanceUrl",
           "sagemaker:ListNotebookInstances",
           "sagemaker:DescribeNotebookInstance",
           "sagemaker:StopNotebookInstance",
           "sagemaker:DeleteNotebookInstance",
-          "iam:PassRole",
-          "iam:ListRoles"          
+          "iam:ListRoles"
         ]
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "iam:PassRole"
+        Resource = "arn:aws:iam::*:role/privesc-sagemaker-role"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "sagemaker.amazonaws.com"
+          }
+        }
       },
     ]
   })

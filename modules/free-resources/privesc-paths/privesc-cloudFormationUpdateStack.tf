@@ -15,7 +15,7 @@ resource "aws_iam_policy" "privesc-CloudFormationUpdateStack" {
 			 "cloudformation:UpdateStack",
 			 "cloudformation:DescribeStacks"
 		 ],
-		 "Resource": "*"
+		 "Resource": "arn:aws:cloudformation:*:*:stack/privesc-*"
 	  }
    ]
 })

@@ -11,7 +11,7 @@ resource "aws_iam_policy" "privesc6-UpdateLoginProfile" {
       {
         Action = "iam:UpdateLoginProfile"
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:iam::*:user/$${aws:username}"
       },
     ]
   })

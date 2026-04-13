@@ -12,14 +12,25 @@ resource "aws_iam_policy" "privesc-ssmStartSession-policy" {
         Effect   = "Allow"
         Action = [
           "ec2:DescribeInstances",
-          "ssm:StartSession",
-           "ssm:DescribeSessions",
-            "ssm:GetConnectionStatus",
-            "ssm:DescribeInstanceProperties",
-            "ssm:TerminateSession",
-            "ssm:ResumeSession"
+          "ssm:DescribeSessions",
+          "ssm:GetConnectionStatus",
+          "ssm:DescribeInstanceProperties"
         ]
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action = [
+          "ssm:StartSession",
+          "ssm:TerminateSession",
+          "ssm:ResumeSession"
+        ]
+        Resource = "arn:aws:ec2:*:*:instance/*"
+        Condition = {
+          StringEquals = {
+            "ssm:ResourceTag/Environment" = "lab"
+          }
+        }
       },
     ]
   })

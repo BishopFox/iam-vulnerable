@@ -10,11 +10,18 @@ resource "aws_iam_policy" "privesc-sageMakerCreateProcessingJobPassRole-policy" 
     Statement = [
       {
         Effect   = "Allow"
-        Action = [
-          "sagemaker:CreateProcessingJob",
-          "iam:PassRole"          
-        ]
+        Action = "sagemaker:CreateProcessingJob"
         Resource = "*"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "iam:PassRole"
+        Resource = "arn:aws:iam::*:role/privesc-sagemaker-role"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "sagemaker.amazonaws.com"
+          }
+        }
       },
     ]
   })

@@ -33,11 +33,14 @@ resource "aws_iam_policy" "fn1-passrole-star" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = [
-	      "iam:PassRole"
-        ]
+        Action   = "iam:PassRole"
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:iam::*:role/privesc-high-priv-service-role"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "ec2.amazonaws.com"
+          }
+        }
       },
     ]
   })

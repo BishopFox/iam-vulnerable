@@ -10,12 +10,21 @@ resource "aws_iam_policy" "privesc16-PassRoleToNewLambdaThenTriggerWithNewDynamo
     Statement = [
       {
         Action = [
-	      "lambda:CreateFunction",
- 			  "iam:PassRole",
-			  "lambda:CreateEventSourceMapping"
+          "lambda:CreateFunction",
+          "lambda:CreateEventSourceMapping"
         ]
         Effect   = "Allow"
         Resource = "*"
+      },
+      {
+        Action   = "iam:PassRole"
+        Effect   = "Allow"
+        Resource = "arn:aws:iam::*:role/privesc-high-priv-lambda-role2"
+        Condition = {
+          StringEquals = {
+            "iam:PassedToService" = "lambda.amazonaws.com"
+          }
+        }
       },
     ]
   })

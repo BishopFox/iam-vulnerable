@@ -11,8 +11,8 @@ resource "aws_iam_policy" "privesc14-UpdatingAssumeRolePolicy" {
       
       {
         Action = [
-	      "iam:UpdateAssumeRolePolicy",
-        "sts:AssumeRole"
+          "iam:GetRole",
+          "sts:GetCallerIdentity"
         ]
         Effect   = "Allow"
         Resource = "*"

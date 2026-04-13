@@ -10,9 +10,22 @@ resource "aws_iam_policy" "privesc-sre-admin-policy" {
     Statement = [
       {
         Action = [
-	      "iam:*",
-        "ec2:*",
-        "s3:*"
+          "iam:GetUser",
+          "iam:GetRole",
+          "iam:ListUsers",
+          "iam:ListRoles",
+          "iam:ListPolicies",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "ec2:Describe*",
+          "ec2:StartInstances",
+          "ec2:StopInstances",
+          "ec2:RebootInstances",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket",
+          "s3:ListAllMyBuckets",
+          "s3:GetBucketLocation"
         ]
         Effect   = "Allow"
         Resource = "*"

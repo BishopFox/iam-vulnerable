@@ -9,9 +9,13 @@ resource "aws_iam_policy" "privesc-high-priv-lambda-policy2" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = "*"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:logs:*:*:log-group:/aws/lambda/*"
       },
     ]
   })

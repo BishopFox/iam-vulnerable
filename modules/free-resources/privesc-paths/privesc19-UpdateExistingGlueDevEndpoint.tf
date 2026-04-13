@@ -10,11 +10,11 @@ resource "aws_iam_policy" "privesc19-UpdateExistingGlueDevEndpoint" {
     Statement = [
       {
         Action = [
-	      "glue:UpdateDevEndpoint",
-        "glue:GetDevEndpoint"
+          "glue:UpdateDevEndpoint",
+          "glue:GetDevEndpoint"
         ]
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:glue:*:*:devEndpoint/privesc-glue-devendpoint"
       },
     ]
   })
